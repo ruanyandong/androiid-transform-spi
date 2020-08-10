@@ -1,0 +1,15 @@
+apply from:'comp-pool.gradle'
+SPI_COMP_POOL_INCLUDE.each{
+    include ":$it"
+}
+//通过脚本来include这几个模块
+//include ':comp-movie'
+//include ':comp-game'
+//include ':comp-base-module'
+//include ':comp-module'
+
+include ':spi-processor'
+include ':spi-repository'
+include ':spi-annotation'
+include ':app'
+rootProject.name = "android-transform-spi"

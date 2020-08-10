@@ -1,0 +1,22 @@
+ext{
+    SPI_COMP_POOL_INCLUDE = []
+    SPI_COMP_POOL_DEPENDENCIES = []
+}
+
+def excludeList = []
+
+def loadAllComp(String path,List list,List excludeList){
+   def rootFile = file(path)
+    rootFile.list().each {
+        def dir = file(rootFile.getAbsolutePath() + File.separator + it)
+        if (dir.isDirectory() && (it.startsWith("comp-") || it.startsWith("comp_")) && !excludeList.contains(it)){
+            if (dir.list().contains("build.gradle")){
+                list.add(it)
+            }
+        }
+    }
+}
+// 当前目录
+loadAllComp('./',SPI_COMP_POOL_INCLUDE,excludeList)
+// 当前目录的父目录
+loadAllComp('../',SPI_COMP_POOL_DEPENDENCIES,excludeList)
